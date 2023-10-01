@@ -26,6 +26,19 @@ export const App = () => {
     setIncompleteTodos(newTodos);
   };
 
+  const onClickComplete = (index) => {
+    // 未完了リストから完了ボタンが押されたタスクを削除する
+    const newIncompleteTodos = [...incompleteTodos];
+    newIncompleteTodos.splice(index, 1);
+
+    // 完了リストに完了ボタンが押されたタスクを追加する
+    const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+    
+    // それぞれのStateを更新する
+    setIncompleteTodos(newIncompleteTodos);
+    setCompleteTodos(newCompleteTodos);
+  };
+
   return (
     <>
     <div className="input-area">
@@ -40,7 +53,7 @@ export const App = () => {
             <li key={todo}>
               <div className="list-row">
                 <p>{todo}</p>
-                <button>完了</button>
+                <button onClick={() => onClickComplete(index)}>完了</button>
                 <button onClick={() => onClickDelete(index)}>削除</button>
               </div>
             </li>
@@ -51,7 +64,7 @@ export const App = () => {
     <div className="complete-area">
     <p className="title">未完了のTODO</p>
       <ul>
-        {completeTodos.map((todo) => {
+        {completeTodos.map((todo, index) => {
           return (
             <li key={todo}>
               <div className="list-row">
