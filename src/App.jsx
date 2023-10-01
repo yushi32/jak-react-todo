@@ -21,22 +21,25 @@ export const App = () => {
   };
 
   const onClickDelete = (index) => {
-    const newTodos = [...incompleteTodos];
-    newTodos.splice(index, 1);
-    setIncompleteTodos(newTodos);
+    deleteFromIncompleteTodos(index);
   };
 
   const onClickComplete = (index) => {
     // 未完了リストから完了ボタンが押されたタスクを削除する
-    const newIncompleteTodos = [...incompleteTodos];
-    newIncompleteTodos.splice(index, 1);
+    deleteFromIncompleteTodos(index);
 
     // 完了リストに完了ボタンが押されたタスクを追加する
     const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
     
     // それぞれのStateを更新する
-    setIncompleteTodos(newIncompleteTodos);
+    // incompleteTodosはdeletFrom...関数で更新済みなので削除
     setCompleteTodos(newCompleteTodos);
+  };
+
+  const deleteFromIncompleteTodos = (index) => {
+    const newTodos = [...incompleteTodos];
+    newTodos.splice(index, 1);
+    setIncompleteTodos(newTodos);
   };
 
   return (
